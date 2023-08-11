@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ittai title</title>
+    <style>
+        body {
+            background-color: #F5F5F5;
+            font-family: "Arial", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333333;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #CCCCCC;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #FF9900;
+            color: #FFFFFF;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #FFB84D;
+        }
+    </style>
+
+    <script>
+         // define the callAPI function that takes a first name and last name as parameters
+        var callAPI = (firstName,lastName)=>{
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"firstName":firstName,"lastName":lastName});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://5noq17u7h1.execute-api.us-west-2.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+        var callTest = () =>{
+          let fname = document.getElementById('filename').value;
+          let investment = document.getElementById('initialInvestment').value;
+          let numSequences = document.getElementById('expNumSequences').value;
+          let optimalValue = document.getElementById('expOptimalValue').value;
+          let actions = document.getElementById('numActions').value;
+          console.log("File Name = " + fname);
+          console.log("Initial Investment = " + investment);
+          console.log("Expected Num Sequences = " + numSequences);
+          console.log("Expected Optimal Value = " + optimalValue);
+          console.log("Number of Actions = " + actions);
+
+          // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"FileName":fname,"InitialInvestment":investment, "NumActions":actions});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://5noq17u7h1.execute-api.us-west-2.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+        var callLambdaFunction = () =>{
+          let stockSymbol = document.getElementById('Symbol').value;
+          let stockInvestment = parseInt(document.getElementById('Investment').value);
+          let stockRate = document.getElementById('Rate').value;
+          let stockActions = parseInt(document.getElementById('numberOfActions').value);
+          let startDate = document.getElementById('Start_Date').value;
+          let endDate = document.getElementById('End_Date').value;
+          console.log("Stock Symbol = " + stockSymbol);
+          console.log("Initial Investment = " + stockInvestment);
+          console.log("Rate = " + stockRate);
+          console.log("Number of Actions = " + stockActions);
+          console.log("Start Date = " + startDate);
+          console.log("End Date = " + endDate);
+
+          // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"Investment":stockInvestment,"Symbol":stockSymbol,"Rate":stockRate,"NumActions":stockActions,"Start_Date":startDate,"End_Date":endDate});
+            console.log(raw);
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://5noq17u7h1.execute-api.us-west-2.amazonaws.com/dev/optimal", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                var str = "Optimal Return: "
+                str = str + JSON.parse(result)["body"]["OptimalReturn"].toFixed(2);
+                document.getElementById("OptimalReturn").innerHTML = str;
+            })
+            .catch(error => console.log('error', error));
+         }
+
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Optimizer</h1>
+            <div class="form-group">
+                <label for="Symbol">Stock Symbol:</label>
+                <input type="text" id="Symbol" value="AAPL">
+            </div>
+            <div class="form-group">
+                <label for="Investment">Investment:</label>
+                <input type="text" id="Investment" value="100">
+            </div>
+            <div class="form-group">
+                <label for="Rate">Rate:</label>
+                <select id="Rate">
+                <option value="minute">Minute</option>
+                <option value="hour">Hour</option>
+                <option value="daily" selected>Daily</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="numberOfActions">Number of Actions:</label>
+                <input type="text" id="numberOfActions" value="3">
+            </div>
+            <div class="form-group">
+                <label for="Start_Date">Start Date:</label>
+                <input type="date" id="Start_Date" value="2021-12-01">
+            </div>
+            <div class="form-group">
+                <label for="End_Date">End Date:</label>
+                <input type="date" id="End_Date" value="2021-12-31">
+            </div>
+            <div class="form-group">
+                <button type="button" class="button" onclick="callLambdaFunction()">Call Lambda Function</button>
+            </div>
+        <h1>Test</h1>
+        <form>
+            <div class="form-group">
+                <label for="filename">Select a Filename:</label>
+                <select id="filename">
+                    <option value="Test1">Test1</option>
+                    <option value="Test2">Test2</option>
+                    <option value="Test3">Test3</option>
+                    <option value="Test4">Test4</option>
+                    <option value="Test5">Test5</option>
+                    <option value="Test6">Test6</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="initialInvestment">Initial Investment:</label>
+                <input type="text" id="initialInvestment" value="100">
+            </div>
+            <div class="form-group">
+                <label for="expNumSequences">Expected Number of Sequences:</label>
+                <input type="text" id="expNumSequences" value="3">
+            </div>
+            <div class="form-group">
+                <label for="expOptimalValue">Expected Optimal Value:</label>
+                <input type="text" id="expOptimalValue" value="350">
+            </div>
+            <div class="form-group">
+                <label for="numActions">Number of Actions:</label>
+                <input type="text" id="numActions" value="3">
+            </div>
+            <div class="form-group">
+                <button type="button" class="button" onclick="callTest()">Call Test</button>
+            </div>
+
+        </form>
+<!--        <label>Optimal Return: </label>-->
+        <label id="OptimalReturn"></label>
+    </div>
+</body>
+</html>
