@@ -184,7 +184,7 @@ There are three main ways I tested the code for this project:
     
 2.  I used a separate Python test file to test my main logic, outside of AWS
     
-3.  On the webpage, I added a section at the bottom where one can test the program, using predefined test variables, validating the whole chain from the UI to the logic in the Lambda function.. 
+3.  On the webpage, I added a section at the bottom where one can test the program, using predefined test variables, validating the whole chain from the UI to the logic in the Lambda function.
 
 
 ## To-Do
