@@ -173,15 +173,20 @@ I used Python to code the lambda function. I used python for a few reasons:
 
 **Javascript**
 
-I used Javascript to code the majority of my HTML file. I learned Javascript over the summer to help code the HTML file.
+I used Javascript to code the majority of my HTML file. I learned Javascript over the summer to facilitate the UI.
 
 
 ## Testing
 
 There are three main ways I tested the code for this project:
 
-1.  In the AWS Lambda, I was able to test the program with a few predefined tests
+1.  In the AWS Lambda, I was able to test the program with a few predefined tests to validate my main logic within AWS Lambda
     
 2.  I used a separate Python test file to test my main logic, outside of AWS
     
-3.  On the webpage, I added a section at the bottom where one can test the program, using predefined test variables.
+3.  On the webpage, I added a section at the bottom where one can test the program, using predefined test variables, validating the whole chain from the UI to the logic in the Lambda function.. 
+
+
+## To-Do
+- Add special value for infinite number of actions
+
