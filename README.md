@@ -189,4 +189,7 @@ There are three main ways I tested the code for this project:
 
 ## To-Do
 - Add special value for infinite number of actions
+- Improve CSS and visual aspects of web app
+- Add spinner while calculating optimal return as indication that the code is working correctly
+- Add automatic test once a day to ensure the program is working as intended
 
