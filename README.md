@@ -1,6 +1,8 @@
-# StockOptimizer
+# StockOptimizer 
 This program finds the most optimal return, retrospectively, for an investment in any stock. To understand how the web app works, you first need to understand how the program optimizes return.
 
+If you want to try it for yourself, 
+[click this link](https://main.d1dql4hucbr193.amplifyapp.com/)
   
 
 Let's go over 3 graphs, and let's say they represent the price of a stock over a fixed period of time.
